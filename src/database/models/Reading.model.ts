@@ -8,46 +8,61 @@ import {
 import db from '.';
 
 class Reading extends Model<InferAttributes<Reading>, InferCreationAttributes<Reading>> {
-  declare measure_uuid: CreationOptional<string>;
-  declare measure_datetime: 'WATER' | 'GAS';
-  declare measure_type: string;
-  declare has_confirmed: boolean;
-  declare image_url: string;
-  declare customer_code: string;
+  declare measureUuid: CreationOptional<string>;
+  declare measureDatetime: 'WATER' | 'GAS';
+  declare measureValue: number;
+  declare measureType: string;
+  declare hasConfirmed: boolean;
+  declare imageUrl: string;
+  declare customerCode: string;
+  declare confirmedValue: number;
 }
 
 Reading.init(
   {
-    measure_uuid: {
+    measureUuid: {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
+      field: 'measure_uuid',
     },
-    measure_datetime: {
+    measureDatetime: {
       type: DataTypes.DATE,
       allowNull: false,
+      field: 'measure_datetime',
     },
-    measure_type: {
+    measureType: {
       type: DataTypes.ENUM('WATER', 'GAS'),
       allowNull: false,
+      field: 'measure_type',
     },
-    has_confirmed: {
+    hasConfirmed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      field: 'has_confirmed',
     },
-    image_url: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'image_url',
     },
-    measure_value: {
+    measureValue: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      field: 'measure_value',
     },
-    confirmed_value: {
+    confirmedValue: {
       type: DataTypes.DECIMAL,
+      field: 'confirmed_value',
     },
+    customerCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: 'customer_code',
   },
+},
   {
     sequelize: db,
     tableName: 'readings',
+    timestamps: false,
   })
